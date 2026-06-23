@@ -1,0 +1,119 @@
+SJS JOB SCRAPER — SETUP & USAGE INSTRUCTIONS
+=============================================
+Scrapes job listings from Student Job Search (sjs.co.nz)
+and saves them to a CSV file you can open in Excel or Google Sheets.
+
+
+WHAT YOU NEED
+-------------
+- A computer running Linux (Ubuntu/Debian) or macOS
+- Python 3 installed (it usually is by default)
+- The script file: scrape_sjs.py
+
+
+FIRST TIME SETUP (do this once)
+--------------------------------
+Open a terminal and run these commands one by one:
+
+1. Create a virtual environment (a safe isolated space for the tool):
+
+       python3 -m venv sjs-scraper
+
+2. Activate it:
+
+       source sjs-scraper/bin/activate
+
+   You'll see (sjs-scraper) appear at the start of your terminal prompt.
+   This means it's active.
+
+3. Install Playwright (the browser automation library):
+
+       pip install playwright
+
+4. Install the Chromium browser (used behind the scenes):
+
+       playwright install chromium
+
+That's it! Setup is done.
+
+
+WHERE TO PUT THE SCRIPT
+-----------------------
+Save scrape_sjs.py anywhere you like. A good option is a scripts folder
+in your home directory:
+
+    ~/scripts/scrape_sjs.py
+
+To create that folder:
+
+    mkdir ~/scripts
+
+Then move or copy scrape_sjs.py into it.
+
+
+RUNNING THE SCRIPT
+------------------
+Every time you want to use the scraper:
+
+1. Open a terminal.
+
+2. Activate the virtual environment:
+
+       source sjs-scraper/bin/activate
+
+3. Navigate to where the script is saved:
+
+       cd ~/scripts
+
+4. Run it:
+
+       python scrape_sjs.py
+
+The script will print a preview of results in the terminal and save
+a CSV file in the same folder, named something like:
+
+    sjs_jobs_2026-06-23_14-30.csv
+
+Open that file in Excel, LibreOffice Calc, or Google Sheets.
+
+
+CHANGING THE FILTERS
+--------------------
+Open scrape_sjs.py in a text editor and look for the CONFIG section
+near the top. You'll see:
+
+    LOCATION = "Otago, Dunedin, North Dunedin"
+    KEYWORDS = ""
+    WORK_TYPE = ""
+
+Change these to suit what you're looking for. Examples:
+
+    KEYWORDS  = "barista"         # search for a specific type of job
+    WORK_TYPE = "Casual"          # options: "Casual", "Permanent Part time",
+                                  # "Fixed Term/Temporary", "Internship", etc.
+    LOCATION  = ""                # leave blank to search all of NZ
+
+Save the file after making changes, then run it as normal.
+
+
+NOTES
+-----
+- The virtual environment only needs to be activated once per terminal session.
+  If you close and reopen the terminal, run the activate command again before
+  running the script.
+- The CSV file is saved in the same folder as the script.
+- Each run creates a new CSV with the current date and time in the filename,
+  so old results are never overwritten.
+
+
+TROUBLESHOOTING
+---------------
+"command not found: python3"
+    → Install Python: sudo apt install python3
+
+"externally-managed-environment" error when running pip
+    → Make sure you activated the virtual environment first (step 2 above)
+
+"No job listings found"
+    → The website may have updated its layout. Contact whoever gave you
+      this script and they can fix it.
